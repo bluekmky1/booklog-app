@@ -6,4 +6,9 @@ class Routes {
     name: '/home',
     path: '/home',
   );
+
+  static const RouteInfo user = RouteInfo(
+    name: '/home/user',
+    path: 'user   ',
+  );
 }
