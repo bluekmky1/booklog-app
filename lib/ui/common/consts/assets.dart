@@ -16,9 +16,11 @@ class Assets {
   static const String signOut = 'assets/icons/sign_out.svg';
   static const String trashCan = 'assets/icons/trash_can.svg';
   static const String userInfo = 'assets/icons/user_info.svg';
+  static const String verticalDots = 'assets/icons/vertical_dots.svg';
 
   // mockImage
   static const String book1 = 'assets/mock_images/book1.png';
   static const String book2 = 'assets/mock_images/book2.png';
   static const String book3 = 'assets/mock_images/book3.png';
+  static const String thumnail = 'assets/mock_images/thumnail.png';
 }
