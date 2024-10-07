@@ -32,7 +32,7 @@ class AppRouter {
       _appRouterInterceptor.redirect(context, state);
 
   late final GoRouter _router = GoRouter(
-    initialLocation: Routes.familyRooms.name,
+    initialLocation: Routes.home.name,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
@@ -44,8 +44,8 @@ class AppRouter {
     redirect: _redirect,
     routes: <RouteBase>[
       GoRoute(
-        name: Routes.recruit.name,
-        path: Routes.recruit.path,
+        name: Routes.home.name,
+        path: Routes.home.path,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const NoTransitionPage<dynamic>(
           child: HomeView(),
