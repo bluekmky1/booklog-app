@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../ui/book_review/book_review_view.dart';
 import '../ui/home/home_view.dart';
+import '../ui/user/user_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
 import 'routes.dart';
@@ -32,7 +34,7 @@ class AppRouter {
       _appRouterInterceptor.redirect(context, state);
 
   late final GoRouter _router = GoRouter(
-    initialLocation: Routes.home.name,
+    initialLocation: Routes.bookReview.name,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
@@ -44,13 +46,30 @@ class AppRouter {
     redirect: _redirect,
     routes: <RouteBase>[
       GoRoute(
-        name: Routes.home.name,
-        path: Routes.home.path,
-        pageBuilder: (BuildContext context, GoRouterState state) =>
-            const NoTransitionPage<dynamic>(
-          child: HomeView(),
-        ),
-      ),
+          name: Routes.home.name,
+          path: Routes.home.path,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage<dynamic>(
+                child: HomeView(),
+              ),
+          routes: <RouteBase>[
+            GoRoute(
+              name: Routes.user.name,
+              path: Routes.user.path,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage<dynamic>(
+                child: UserView(),
+              ),
+            ),
+            GoRoute(
+              name: Routes.bookReview.name,
+              path: Routes.bookReview.path,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage<dynamic>(
+                child: BookReviewView(),
+              ),
+            ),
+          ]),
       // GoRoute(
       //     path: Routes.auth.path,
       //     name: Routes.auth.name,

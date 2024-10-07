@@ -9,6 +9,11 @@ class Routes {
 
   static const RouteInfo user = RouteInfo(
     name: '/home/user',
-    path: 'user   ',
+    path: 'user',
+  );
+
+  static const RouteInfo bookReview = RouteInfo(
+    name: '/home/book-review',
+    path: 'book-review',
   );
 }
