@@ -8,12 +8,18 @@ import '../consts/assets.dart';
 class SearchInputWidget extends StatefulWidget {
   const SearchInputWidget({
     required this.textEditingController,
+    required this.onClear,
+    required this.onSearch,
     this.onChanged,
+    this.onEditingComplete,
     super.key,
   });
 
   final ValueChanged<String>? onChanged;
   final TextEditingController textEditingController;
+  final VoidCallback? onEditingComplete;
+  final VoidCallback onClear;
+  final VoidCallback onSearch;
 
   @override
   State<SearchInputWidget> createState() => _SearchInputWidgetState();
@@ -27,7 +33,9 @@ class _SearchInputWidgetState extends State<SearchInputWidget> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
+                onEditingComplete: widget.onEditingComplete,
                 onChanged: widget.onChanged,
+                controller: widget.textEditingController,
                 cursorColor: BooklogColors.point,
                 cursorWidth: 1,
                 style: Typo.b16r,
@@ -37,31 +45,57 @@ class _SearchInputWidgetState extends State<SearchInputWidget> {
                   hintStyle: Typo.c12r,
                   suffixIconConstraints: const BoxConstraints(
                     maxHeight: 28,
-                    maxWidth: 28,
+                    maxWidth: 76,
                   ),
                   suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child:
-                        //  widget.textEditingController.text.isNotEmpty
-                        //     ? SvgPicture.asset(
-                        //         width: 16,
-                        //         height: 16,
-                        //         Assets.clear,
-                        //         colorFilter: const ColorFilter.mode(
-                        //           BooklogColors.main,
-                        //           BlendMode.srcIn,
-                        //         ),
-                        //       )
-                        //     :
-                        SvgPicture.asset(
-                      width: 16,
-                      height: 16,
-                      Assets.search,
-                      colorFilter: const ColorFilter.mode(
-                        BooklogColors.main,
-                        BlendMode.srcIn,
-                      ),
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: widget.textEditingController.text.isNotEmpty
+                        ? Row(
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  widget.onClear();
+                                  setState(() {
+                                    widget.textEditingController.clear();
+                                    FocusScope.of(context).unfocus();
+                                  });
+                                },
+                                child: SvgPicture.asset(
+                                  width: 16,
+                                  height: 16,
+                                  Assets.clear,
+                                  colorFilter: const ColorFilter.mode(
+                                    BooklogColors.main,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              GestureDetector(
+                                onTap: () {
+                                  widget.onSearch();
+                                },
+                                child: SvgPicture.asset(
+                                  width: 16,
+                                  height: 16,
+                                  Assets.search,
+                                  colorFilter: const ColorFilter.mode(
+                                    BooklogColors.main,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : SvgPicture.asset(
+                            width: 16,
+                            height: 16,
+                            Assets.search,
+                            colorFilter: const ColorFilter.mode(
+                              BooklogColors.main,
+                              BlendMode.srcIn,
+                            ),
+                          ),
                   ),
                 ),
                 onTapOutside: (_) {

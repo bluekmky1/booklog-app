@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/common/repository/repository.dart';
 import '../../core/common/repository/repository_result.dart';
 import 'book_remote_data_source.dart';
-import 'entity/book_entity.dart';
 import 'entity/book_search_result_entity.dart';
 import 'entity/book_title_entity.dart';
+import 'entity/random_book_list_entity.dart';
 import 'entity/user_book_activity_entity.dart';
 
 final Provider<BookRepository> bookRepositoryProvider =
@@ -21,11 +21,11 @@ class BookRepository extends Repository {
   final BookRemoteDataSource _bookRemoteDataSource;
 
   // 기본 도서 목록 조회
-  Future<RepositoryResult<List<BookEntity>>> getBookList({
+  Future<RepositoryResult<RandomBookListEntity>> getBookList({
     required int size,
   }) async {
     try {
-      return SuccessRepositoryResult<List<BookEntity>>(
+      return SuccessRepositoryResult<RandomBookListEntity>(
         data: await _bookRemoteDataSource.getBookList(
           size: size,
         ),
@@ -34,7 +34,7 @@ class BookRepository extends Repository {
       final int? statusCode = e.response?.statusCode;
 
       return switch (statusCode) {
-        _ => FailureRepositoryResult<List<BookEntity>>(
+        _ => FailureRepositoryResult<RandomBookListEntity>(
             error: e,
             messages: <String>['데이터 불러오는 과정에 오류가 있습니다'],
           ),
@@ -85,8 +85,8 @@ class BookRepository extends Repository {
   // 도서 검색
   Future<RepositoryResult<BookSearchResultEntity>> searchBook({
     required String keyword,
-    required int size,
-    required int page,
+    required int? size,
+    required int? page,
   }) async {
     try {
       return SuccessRepositoryResult<BookSearchResultEntity>(

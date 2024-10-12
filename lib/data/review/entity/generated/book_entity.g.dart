@@ -11,7 +11,6 @@ BookEntity _$BookEntityFromJson(Map<String, dynamic> json) => BookEntity(
       title: json['title'] as String,
       author: json['author'] as String,
       description: json['description'] as String,
-      file: FileEntity.fromJson(json['file'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$BookEntityToJson(BookEntity instance) =>
@@ -20,5 +19,18 @@ Map<String, dynamic> _$BookEntityToJson(BookEntity instance) =>
       'title': instance.title,
       'author': instance.author,
       'description': instance.description,
-      'file': instance.file,
+    };
+
+BookFileEntity _$BookFileEntityFromJson(Map<String, dynamic> json) =>
+    BookFileEntity(
+      id: (json['id'] as num).toInt(),
+      logicalName: json['logicalName'] as String,
+      physicalPath: json['physicalPath'] as String,
+    );
+
+Map<String, dynamic> _$BookFileEntityToJson(BookFileEntity instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'logicalName': instance.logicalName,
+      'physicalPath': instance.physicalPath,
     };

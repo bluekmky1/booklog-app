@@ -22,19 +22,19 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<RandomBookListEntity> getBookList({required int size}) async {
+  Future<List<BookEntity>> getBookList({required int size}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'size': size};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<RandomBookListEntity>(Options(
+    final _options = _setStreamType<List<BookEntity>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/books',
+          '/book',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -43,10 +43,12 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late RandomBookListEntity _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<BookEntity> _value;
     try {
-      _value = RandomBookListEntity.fromJson(_result.data!);
+      _value = _result.data!
+          .map((dynamic i) => BookEntity.fromJson(i as Map<String, dynamic>))
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -67,7 +69,7 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
     )
         .compose(
           _dio.options,
-          '/books/${isbn}',
+          '/book/${isbn}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -122,8 +124,8 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
 
   @override
   Future<BookSearchResultEntity> searchBook({
-    int? page,
-    int? size,
+    required int page,
+    required int size,
     required String keyword,
   }) async {
     final _extra = <String, dynamic>{};
@@ -132,7 +134,6 @@ class _BookRemoteDataSource implements BookRemoteDataSource {
       r'size': size,
       r'keyword': keyword,
     };
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<BookSearchResultEntity>(Options(

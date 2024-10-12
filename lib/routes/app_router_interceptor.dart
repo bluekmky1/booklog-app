@@ -17,8 +17,8 @@ class AppRouterInterceptor {
 
   // 라우트의 이동마다 호출됩니다.
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
-    // final bool isSignedIn = _ref
-    //     .read(appServiceProvider.select((AppState value) => value.isSignedIn));
+    final bool isSignedIn = _ref
+        .read(appServiceProvider.select((AppState value) => value.isSignedIn));
 
     // if (!isSignedIn) {
     //   // sign in 으로 가야만 하는 상태입니다.
@@ -30,7 +30,7 @@ class AppRouterInterceptor {
     //   // 즉시 가족 구성원 화면으로 리다이렉트 해줍니다.
     //   if (state.fullPath != null &&
     //       state.fullPath!.startsWith(Routes.auth.name)) {
-    //     return Routes.familyRooms.name;
+    //     return Routes.home.name;
     //   }
     // }
 

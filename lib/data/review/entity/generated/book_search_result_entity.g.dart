@@ -9,7 +9,7 @@ part of '../book_search_result_entity.dart';
 BookSearchResultEntity _$BookSearchResultEntityFromJson(
         Map<String, dynamic> json) =>
     BookSearchResultEntity(
-      contents: (json['contents'] as List<dynamic>)
+      content: (json['content'] as List<dynamic>)
           .map((e) => BookEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       pageable:
@@ -19,6 +19,6 @@ BookSearchResultEntity _$BookSearchResultEntityFromJson(
 Map<String, dynamic> _$BookSearchResultEntityToJson(
         BookSearchResultEntity instance) =>
     <String, dynamic>{
-      'contents': instance.contents,
+      'content': instance.content,
       'pageable': instance.pageable,
     };

@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../ui/book_review/book_review_view.dart';
+import '../ui/book_review_detail/book_review_detail_view.dart';
 import '../ui/home/home_view.dart';
+import '../ui/sign_in/sign_in_view.dart';
+import '../ui/sign_up/sign_up_view.dart';
 import '../ui/user/user_view.dart';
 import 'app_router_interceptor.dart';
 import 'redirect_notifier.dart';
@@ -34,7 +36,7 @@ class AppRouter {
       _appRouterInterceptor.redirect(context, state);
 
   late final GoRouter _router = GoRouter(
-    initialLocation: Routes.bookReview.name,
+    initialLocation: Routes.home.name,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
@@ -45,6 +47,35 @@ class AppRouter {
     ),
     redirect: _redirect,
     routes: <RouteBase>[
+      GoRoute(
+        path: Routes.auth.path,
+        name: Routes.auth.name,
+        redirect: (BuildContext context, GoRouterState state) {
+          if (state.fullPath == null || state.fullPath == Routes.auth.path) {
+            return Routes.signIn.name;
+          }
+          return null;
+        },
+        routes: <RouteBase>[
+          GoRoute(
+              name: Routes.signIn.name,
+              path: Routes.signIn.path,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage<dynamic>(
+                    child: SignInView(),
+                  ),
+              routes: <RouteBase>[
+                GoRoute(
+                  name: Routes.signUp.name,
+                  path: Routes.signUp.path,
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      const NoTransitionPage<dynamic>(
+                    child: SignUpView(),
+                  ),
+                ),
+              ]),
+        ],
+      ),
       GoRoute(
           name: Routes.home.name,
           path: Routes.home.path,
@@ -66,79 +97,10 @@ class AppRouter {
               path: Routes.bookReview.path,
               pageBuilder: (BuildContext context, GoRouterState state) =>
                   const NoTransitionPage<dynamic>(
-                child: BookReviewView(),
+                child: BookReviewDetailView(),
               ),
             ),
           ]),
-      // GoRoute(
-      //     path: Routes.auth.path,
-      //     name: Routes.auth.name,
-      //     redirect: (BuildContext context, GoRouterState state) {
-      //       if (state.fullPath == null || state.fullPath == Routes.auth.path) {
-      //         return Routes.signIn.name;
-      //       }
-      //       return null;
-      //     },
-      //     routes: <RouteBase>[
-      //       GoRoute(
-      //           name: Routes.signIn.name,
-      //           path: Routes.signIn.path,
-      //           pageBuilder: (BuildContext context, GoRouterState state) =>
-      //               const NoTransitionPage<dynamic>(
-      //                 child: SignInView(),
-      //               ),
-      //           routes: <RouteBase>[
-      //             GoRoute(
-      //               name: Routes.signUp.name,
-      //               path: Routes.signUp.path,
-      //               pageBuilder: (BuildContext context, GoRouterState state) =>
-      //                   const NoTransitionPage<dynamic>(
-      //                 child: SignUpView(),
-      //               ),
-      //             ),
-      //           ]),
-      //     ]),
-      // GoRoute(
-      //     name: Routes.familyRooms.name,
-      //     path: Routes.familyRooms.path,
-      //     pageBuilder: (BuildContext context, GoRouterState state) =>
-      //         const NoTransitionPage<dynamic>(
-      //           child: FamilyRoomsView(),
-      //         ),
-      //     routes: <RouteBase>[
-      //       GoRoute(
-      //         name: Routes.recruit.name,
-      //         path: Routes.recruit.path,
-      //         pageBuilder: (BuildContext context, GoRouterState state) =>
-      //             const NoTransitionPage<dynamic>(
-      //           child: RecruitView(),
-      //         ),
-      //       ),
-      //       GoRoute(
-      //         path: Routes.home.path,
-      //         name: Routes.home.name,
-      //         pageBuilder: (BuildContext context, GoRouterState state) =>
-      //             NoTransitionPage<dynamic>(
-      //           child: HomeView(
-      //             familyId: state.pathParameters['familyId'] ?? '',
-      //           ),
-      //         ),
-      //         routes: <RouteBase>[
-      //           GoRoute(
-      //             name: Routes.question.name,
-      //             path: Routes.question.path,
-      //             pageBuilder: (BuildContext context, GoRouterState state) =>
-      //                 NoTransitionPage<dynamic>(
-      //               child: QuestionView(
-      //                   familyId: state.pathParameters['familyId'] ?? '',
-      //                   question: state.pathParameters['question'] ?? '',
-      //                   questionId: state.pathParameters['questionId'] ?? '',
-      //                   createdAt: state.pathParameters['createdAt'] ?? ','),
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ]),
     ],
   );
 

@@ -30,7 +30,7 @@ final Provider<Dio> dioServiceProvider = Provider<Dio>(
 );
 
 class DioClient {
-  static const String baseUrl = 'http://211.188.49.236:5252/api/v1/';
+  static const String baseUrl = 'http://58.238.255.245:8080/api/v1/';
 
   factory DioClient() => DioClient._();
   DioClient._();

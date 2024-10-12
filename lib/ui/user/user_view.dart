@@ -5,7 +5,6 @@ import '../../theme/booklog_colors.dart';
 import '../../theme/typographies.dart';
 import '../common/app_bar/reverse_rounded_app_bar.dart';
 import '../common/consts/assets.dart';
-import '../home/home_view.dart';
 
 class UserView extends StatelessWidget {
   const UserView({super.key});
@@ -122,25 +121,25 @@ class UserView extends StatelessWidget {
                       //   ),
                       // ),
 
-                      // 책 리스트
-                      const SizedBox(height: 24),
-                      GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 95 / 167,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 14,
-                        ),
-                        itemBuilder: (BuildContext context, int index) =>
-                            BookContainerWidget(
-                          assetUrl:
-                              'assets/mock_images/book${index % 3 + 1}.png',
-                        ),
-                        itemCount: 7,
-                      ),
+                      // // 책 리스트
+                      // const SizedBox(height: 24),
+                      // GridView.builder(
+                      //   physics: const NeverScrollableScrollPhysics(),
+                      //   shrinkWrap: true,
+                      //   gridDelegate:
+                      //       const SliverGridDelegateWithFixedCrossAxisCount(
+                      //     crossAxisCount: 3,
+                      //     childAspectRatio: 95 / 167,
+                      //     mainAxisSpacing: 20,
+                      //     crossAxisSpacing: 14,
+                      //   ),
+                      //   itemBuilder: (BuildContext context, int index) =>
+                      //       BookContainerWidget(
+                      //     assetUrl:
+                      //         'assets/mock_images/book${index % 3 + 1}.png',
+                      //   ),
+                      //   itemCount: 7,
+                      // ),
                       const SizedBox(height: 84),
                     ],
                   ),

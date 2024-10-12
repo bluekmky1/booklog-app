@@ -8,11 +8,11 @@ part 'generated/book_search_result_entity.g.dart';
 @JsonSerializable()
 class BookSearchResultEntity {
   const BookSearchResultEntity({
-    required this.content,
+    required this.contents,
     required this.pageable,
   });
 
-  final List<BookEntity> content;
+  final List<BookEntity> contents;
   final PageableEntity pageable;
 
   factory BookSearchResultEntity.fromJson(Map<String, dynamic> json) =>

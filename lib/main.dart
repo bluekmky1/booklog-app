@@ -21,6 +21,8 @@ class MainApp extends ConsumerWidget {
           appBarTheme: const AppBarTheme(
             backgroundColor: BooklogColors.main,
             toolbarHeight: 48,
+            elevation: 0,
+            scrolledUnderElevation: 0,
           ),
           inputDecorationTheme: const InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(
