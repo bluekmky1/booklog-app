@@ -6,10 +6,12 @@ import '../../../theme/typographies.dart';
 class FilledTextButtonWidget extends StatelessWidget {
   const FilledTextButtonWidget({
     required this.text,
+    this.onPressed,
     super.key,
   });
 
   final String text;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -22,7 +24,7 @@ class FilledTextButtonWidget extends StatelessWidget {
             backgroundColor: BooklogColors.main,
             foregroundColor: BooklogColors.white,
           ),
-          onPressed: () {},
+          onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

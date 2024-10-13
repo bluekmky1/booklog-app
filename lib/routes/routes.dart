@@ -28,8 +28,13 @@ class Routes {
     path: 'user',
   );
 
+  static const RouteInfo bookReviewList = RouteInfo(
+    name: '/home/book-review-list',
+    path: 'book-review-list',
+  );
+
   static const RouteInfo bookReview = RouteInfo(
-    name: '/home/book-review',
+    name: '/home/book-review-list/book-review',
     path: 'book-review',
   );
 }

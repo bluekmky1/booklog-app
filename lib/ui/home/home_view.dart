@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/loading_status.dart';
 import '../../domain/book/model/book_model.dart';
+import '../../routes/routes.dart';
 import '../../theme/booklog_colors.dart';
 import '../../theme/typographies.dart';
 import '../common/app_bar/reverse_rounded_app_bar.dart';
@@ -243,6 +245,9 @@ class BookList extends StatelessWidget {
         crossAxisSpacing: 14,
       ),
       itemBuilder: (BuildContext context, int index) => BookContainerWidget(
+          onTap: () {
+            context.goNamed(Routes.bookReviewList.name);
+          },
           title: bookList[index].title,
           imageUrl: bookList[index].coverImageUrl),
       itemCount: bookList.length);
@@ -290,29 +295,34 @@ class BookContainerWidget extends StatelessWidget {
   const BookContainerWidget({
     required this.imageUrl,
     required this.title,
+    this.onTap,
     super.key,
   });
 
   final String imageUrl;
   final String title;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) => Column(
         children: <Widget>[
-          Container(
-            height: 140,
-            decoration: BoxDecoration(
-              color: BooklogColors.white,
-              borderRadius: BorderRadius.circular(5.23),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  blurRadius: 5,
-                  color: BooklogColors.deepGray.withOpacity(0.2),
-                )
-              ],
-            ),
-            child: Image.network(
-              imageUrl,
+          GestureDetector(
+            onTap: onTap,
+            child: Container(
+              height: 140,
+              decoration: BoxDecoration(
+                color: BooklogColors.white,
+                borderRadius: BorderRadius.circular(5.23),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    blurRadius: 5,
+                    color: BooklogColors.deepGray.withOpacity(0.2),
+                  )
+                ],
+              ),
+              child: Image.network(
+                imageUrl,
+              ),
             ),
           ),
           const SizedBox(height: 8),

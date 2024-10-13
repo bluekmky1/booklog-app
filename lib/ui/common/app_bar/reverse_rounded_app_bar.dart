@@ -65,11 +65,20 @@ class _ReverseRoundedAppBarState extends ConsumerState<ReverseRoundedAppBar> {
             ),
           )
         else
-          TextButton(
-              onPressed: () {
-                context.push(Routes.signIn.name);
+          Padding(
+            padding: const EdgeInsets.only(right: 24),
+            child: GestureDetector(
+              onTap: () {
+                context.goNamed(Routes.signIn.name);
               },
-              child: const Text('로그인'))
+              child: Text(
+                '로그인',
+                style: Typo.c12r.copyWith(
+                  color: BooklogColors.white,
+                ),
+              ),
+            ),
+          )
       ],
     );
   }

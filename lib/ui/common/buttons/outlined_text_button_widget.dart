@@ -6,10 +6,12 @@ import '../../../theme/typographies.dart';
 class OutlinedTextButtonWidget extends StatelessWidget {
   const OutlinedTextButtonWidget({
     required this.text,
+    this.onPressed,
     super.key,
   });
 
   final String text;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -25,7 +27,7 @@ class OutlinedTextButtonWidget extends StatelessWidget {
             backgroundColor: BooklogColors.white,
             foregroundColor: BooklogColors.white,
           ),
-          onPressed: () {},
+          onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

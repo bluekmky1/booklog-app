@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../routes/routes.dart';
 import '../../theme/booklog_colors.dart';
 import '../../theme/typographies.dart';
 import '../common/app_bar/reverse_rounded_app_bar.dart';
@@ -104,9 +106,37 @@ class _SignInViewState extends ConsumerState<SignInView> {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    const FilledTextButtonWidget(text: '로그인'),
+                    FilledTextButtonWidget(
+                      text: '로그인',
+                      onPressed: () {},
+                    ),
                     const SizedBox(height: 8),
-                    const OutlinedTextButtonWidget(text: '회원가입'),
+                    OutlinedTextButtonWidget(
+                      text: '회원가입',
+                      onPressed: () {
+                        context.goNamed(Routes.signUp.name);
+                      },
+                    ),
+                    TextButton.icon(
+                      style: TextButton.styleFrom(
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                      onPressed: () {
+                        context.goNamed(Routes.home.name);
+                      },
+                      icon: SvgPicture.asset(
+                        Assets.back,
+                        colorFilter: const ColorFilter.mode(
+                          BooklogColors.main,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      label: Text(
+                        '홈으로',
+                        style: Typo.c12r.copyWith(
+                          color: BooklogColors.main,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )
